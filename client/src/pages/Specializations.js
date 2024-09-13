@@ -3,6 +3,7 @@ import { Container, Typography, Card, CardContent, Box } from '@mui/material';
 import Navbar from '../components/Navbar';
 
 const SpecializationsPage = () => {
+
     const specializationsData = [
         { code: '122', title: "Комп'ютерні науки" },
         { code: '121', title: 'Інженерія програмного забезпечення' },

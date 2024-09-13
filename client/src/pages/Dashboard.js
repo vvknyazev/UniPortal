@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Box, Container, Typography, Paper, Grid, Button } from '@mui/material';
 import Navbar from '../components/Navbar';
 import CourseCard from '../components/CourseCard';
 import Footer from '../components/Footer';
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
+import axios from "axios";
 
-const recommendations = [
+const dash = [
     {
         title: "Наша Місія",
         description: "Ми прагнемо допомогти випускникам шкіл обрати відповідне професійне напрямок."
@@ -34,7 +35,22 @@ const CenteredCard = ({ title, content }) => (
     </Grid>
 );
 
+
 function Dashboard() {
+
+    const [recommendations, setRecommendations] = useState([]);
+    const fetchData = async () => {
+        try {
+            const userFeatures = [1, 276, 162, 6];
+            const response = await axios.post('http://localhost:5000/recommend', { user_features: userFeatures });
+            console.log("response: ", response);
+            // setRecommendations(response.data.recommended_specializations);
+            // console.log("recommendations: ", recommendations);
+        } catch (error) {
+            console.error('Error fetching recommendations:', error);
+        }
+    };
+
     return (
         <Box
             style={{
@@ -57,13 +73,13 @@ function Dashboard() {
                             <Typography paragraph>
                                 Знаходимо найкращі напрямки та спеціалізації для вашого майбутнього.
                             </Typography>
-                            <Button variant="contained" color="primary">Отримати рекомендацію</Button>
+                            <Button variant="contained" color="primary" onClick={fetchData}>Отримати рекомендацію</Button>
                         </Paper>
                     </Grid>
 
                     {/* Right side */}
                     <Grid item xs={12} md={6} container spacing={2}>
-                        {recommendations.map((item, index) => (
+                        {dash.map((item, index) => (
                             <CenteredCard key={index} title={item.title} content={item.description} />
                         ))}
                     </Grid>
