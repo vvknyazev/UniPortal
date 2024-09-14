@@ -134,7 +134,7 @@ def save_recommendations():
 
 # app.register_blueprint(auth)
 
-path_to_csv = './dataset_for_diploma.csv'
+path_to_csv = './optimized-dataset.csv'
 df_data = pd.read_csv(path_to_csv)
 
 df_data['specialization'] = df_data['specialization'].str.strip().str.lower()
